@@ -51,6 +51,7 @@ def field_transform(x, field):
 
 def build_df(soup, fields, init_field):
     '''
+    Builds dataframe from soup object based on fields specified by user.
     '''
     df = pd.DataFrame(columns = fields)
     df[init_field] = soup.select(init_field)
@@ -60,6 +61,12 @@ def build_df(soup, fields, init_field):
     return df
 
 def apply_filters(df, filters=None):
+    '''
+    Applies user specified filters. Takes both single and lists of words for
+    inclusion.
+    Date can be easily modified to gave max and min value rather than
+    year for filter.
+    '''
     if filters:
         if 'include' in filters:
             if type(filters['include']) == str:
@@ -77,23 +84,14 @@ def apply_filters(df, filters=None):
     return df
 
 def df2csv(df, filepath):
+    '''
+    Creates csv file from dataframe
+    '''
     df.to_csv(filepath, index=False)
 
 def main():
-    url = 'http://syndication.enterprise.websiteidx.com/feeds/BoojCodeTest.xml'
-    fields = ['MlsId', 'MlsName', 'DateListed', 'StreetAddress', 'Price',
-            'Bedrooms', 'Bathrooms', 'Appliances', 'Rooms', 'Description']
-    filters = {'include':'and', 'limit':200, 'year':2016, 'ascending':True}
-    filepath = 'carnes_results.csv'
-
-    soup = get_data(url)
-    soup = get_data(url)
-    df = build_df(soup, fields)
-    df_filtered = apply_filters(df, filters)
-    df2csv(df_filtered, filepath)
-
-if __name__ == '__main__':
-    # main()
+    '''
+    '''
     url = 'http://syndication.enterprise.websiteidx.com/feeds/BoojCodeTest.xml'
     fields = ['MlsId', 'MlsName', 'DateListed', 'StreetAddress', 'Price',
             'Bedrooms', 'Bathrooms', 'Appliances', 'Rooms', 'Description']
@@ -102,6 +100,10 @@ if __name__ == '__main__':
     init_field = 'Listing'
 
     soup = get_data(url)
-    df = build_df(soup, fields, init_field)
+    soup = get_data(url)
+    df = build_df(soup, fields)
     df_filtered = apply_filters(df, filters)
-    # df2csv(df_filtered, filepath)
+    df2csv(df_filtered, filepath)
+
+if __name__ == '__main__':
+    main()
