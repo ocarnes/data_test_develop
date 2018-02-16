@@ -1,4 +1,4 @@
 .PHONY: test
 test:
 	py.test test/unittests.py -vv
-	py.test src/carnes_xml2csv.py
+	py.test --pep8 src/carnes_xml2csv.py
