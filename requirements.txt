@@ -1,3 +1,5 @@
 beautifulsoup4
 lxml
 pandas
+pytest-pep8
+requests
